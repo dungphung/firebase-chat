@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+
+        "target": "es6",
+        "module": "commonjs",
+        "baseUrl": "./",
+        "rootDir": "./",
+        "paths": {
+            "*": ["*", "src/*"],
+            "src/*": ["./src/*"]
+        }
+    },
+    "allowJs": true,
+    "moduleResolution": "node",
+    "exclude": ["sessions", ".idea", ".next", ".expo"]
+}

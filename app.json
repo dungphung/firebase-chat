@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "firebase-chat",
+    "slug": "firebase-chat",
+    "privacy": "public",
+    "sdkVersion": "36.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "ios",
+      "publishBundlePath": "ios/firebase-chat/Supporting/shell-app.bundle",
+      "publishManifestPath": "ios/firebase-chat/Supporting/shell-app-manifest.json"
+    },
+    "isDetached": true,
+    "detach": {
+      "iosExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/ios-v2.14.1-sdk36.0.0-6fd93ee8-bc43-41a3-a9e6-4f5d991ca968.tar.gz",
+      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v2.14.0-sdk36.0.0-48fb1c22-f321-47ff-b175-24ca96526dfb.tar.gz"
+    },
+    "scheme": "expc7467342d2be4e6194c03cc5efe6d2b4",
+    "android": {
+      "package": "com.android",
+      "publishBundlePath": "android/app/src/main/assets/shell-app.bundle",
+      "publishManifestPath": "android/app/src/main/assets/shell-app-manifest.json"
+    }
+  }
+}

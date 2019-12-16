@@ -1,0 +1,86 @@
+node_modules/**/*
+.expo/*
+npm-debug.*
+.idea
+.DS_store
+yarn.lock
+
+
+
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+local.properties
+*.iml
+
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Bundle artifact
+*.jsbundle
+
+# Root dir shouldn't have Xcode project
+/*.xcodeproj
+
+# Libs that shouldn't have Xcode project
+/Libraries/FBLazyVector/**/*.xcodeproj
+/Libraries/FBReactNativeSpec/**/*.xcodeproj
+/Libraries/RCTRequired/**/*.xcodeproj
+/React/CoreModules/**/*.xcodeproj
+/packages/react-native-codegen/**/*.xcodeproj
+
+
+# CocoaPods
+/ios/Pods/
+/ios/nhiemvu.xcworkspace
+/ios/Podfile.lock
+/ios/nhiemvu.xcworkspace/*
+/ios/nhiemvu.xcodeproj/xcuserdata/*
+
+/android/app/release/*
+/android/app/build/*
+
+
+
+# BUCK
+buck-out/
+\.buckd/
+
+# Xcode
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+
+# Android/IJ
+.idea
+.gradle
+local.properties
+
+# node.js
+node_modules/
+npm-debug.log
+
+# BUCK
+buck-out/
+\.buckd/
+android/app/libs
+android/keystores/debug.keystore
