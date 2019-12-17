@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 
 import Loader from "./components/common/loader";
-import Container from "./container";
+import Container from "./container2";
 
 import { UserContext } from "./context";
 import { firebaseService } from "./services";
@@ -16,7 +16,7 @@ export default function App() {
         Alert.alert("Something went wrong");
         return;
       }
-
+      // console.log(firebaseService.auth.currentUser, "123123123123");
       setUser(user);
     });
   }, []);

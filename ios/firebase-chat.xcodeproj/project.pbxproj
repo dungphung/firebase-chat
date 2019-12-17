@@ -18,7 +18,7 @@
 		B5CFBF4F1EDE419400B4BE24 /* EXBuildConstants.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5CFBF4E1EDE419400B4BE24 /* EXBuildConstants.plist */; };
 		B5DB04801F3A684600E91581 /* shell-app-manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = B5DB047E1F3A684600E91581 /* shell-app-manifest.json */; };
 		B5DB04811F3A684600E91581 /* shell-app.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B5DB047F1F3A684600E91581 /* shell-app.bundle */; };
-		C833158D23A72A0D00E93762 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C833158C23A72A0D00E93762 /* GoogleService-Info.plist */; };
+		E272253023A76F5A00062164 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E272252F23A76F5A00062164 /* GoogleService-Info.plist */; };
 		EBB8117C1BFA0514F79CAF74 /* libPods-firebase-chat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A88D15726AD99E8A257BC7 /* libPods-firebase-chat.a */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +40,7 @@
 		B5DB047E1F3A684600E91581 /* shell-app-manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "shell-app-manifest.json"; sourceTree = "<group>"; };
 		B5DB047F1F3A684600E91581 /* shell-app.bundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shell-app.bundle"; sourceTree = "<group>"; };
 		C4A88D15726AD99E8A257BC7 /* libPods-firebase-chat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-firebase-chat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C833158C23A72A0D00E93762 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../firebase-ios-dev/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E272252F23A76F5A00062164 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../firbase-ios-dev/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +93,7 @@
 		B56386431DB9693800A0598C /* firebase-chat */ = {
 			isa = PBXGroup;
 			children = (
-				C833158C23A72A0D00E93762 /* GoogleService-Info.plist */,
+				E272252F23A76F5A00062164 /* GoogleService-Info.plist */,
 				B56386471DB9693800A0598C /* AppDelegate.h */,
 				B56386481DB9693800A0598C /* AppDelegate.m */,
 				B56386501DB9693800A0598C /* Assets.xcassets */,
@@ -190,7 +190,7 @@
 				B5693E921FABD46800307FA4 /* launch_icon.png in Resources */,
 				B5693E8E1FABD16A00307FA4 /* LaunchScreen.xib in Resources */,
 				B5DB04801F3A684600E91581 /* shell-app-manifest.json in Resources */,
-				C833158D23A72A0D00E93762 /* GoogleService-Info.plist in Resources */,
+				E272253023A76F5A00062164 /* GoogleService-Info.plist in Resources */,
 				B5DB04811F3A684600E91581 /* shell-app.bundle in Resources */,
 				B56386511DB9693800A0598C /* Assets.xcassets in Resources */,
 			);

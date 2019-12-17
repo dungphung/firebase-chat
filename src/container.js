@@ -42,21 +42,27 @@ export default class Container extends React.Component {
     this.unsubscribe = firebaseService.messageRef
       .orderBy("created_at", "desc")
       .onSnapshot(snapshot => {
-        const messages = unionWith(this.state.messages, snapshot, function(
-          a,
-          b
-        ) {
-          return a.id === b.id;
-        }).sort(function(a, b) {
-          const aData = a.data();
-          const bData = b.data();
+        // snapshot.forEach(el => {
+        //   console.log(el.data());
+        // });
+        // const messages = unionWith(this.state.messages, snapshot, function(
+        //   a,
+        //   b
+        // ) {
+        //   return a.id === b.id;
+        // }).sort(function(a, b) {
+        //   const aData = a.data();
+        //   const bData = b.data();
 
-          return bData.created_at.seconds - aData.created_at.seconds;
-        });
+        //   return bData.created_at.seconds - aData.created_at.seconds;
+        // });
 
-        console.log(messages);
+        // console.log(messages);
 
-        this.setState({ messages });
+        // this.setState({ messages });
+        console.log("====================================");
+        console.log(snapshot.docs);
+        console.log("====================================");
       });
   }
 
