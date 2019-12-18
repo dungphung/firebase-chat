@@ -3,10 +3,10 @@ import { Collections } from "../constants";
 
 export default class FirebaseService {
   auth = firebase.auth();
-
   firestore = firebase.firestore();
 
   messageRef = this.firestore.collection(Collections.MESSAGES);
+  userRef = this.firestore.collection("Users");
 
   async signIn() {
     try {
@@ -17,12 +17,18 @@ export default class FirebaseService {
     }
   }
 
+  async login({ user, password }) {
+    await this.userRef.add({
+      user,
+      password
+    });
+  }
+
   async fetchMessages() {
     const messages = await this.messageRef
       .orderBy("created_at", "desc")
       .limit(10)
       .get();
-
     return messages.docs;
   }
 
