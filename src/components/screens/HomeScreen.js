@@ -7,6 +7,7 @@ import {
   StyleSheet
 } from "react-native";
 import { firebaseService } from "../../services/index";
+import { SafeAreaView } from "react-navigation";
 
 export default class HomeScreen extends Component {
   static navigationOptions = {
@@ -40,13 +41,13 @@ export default class HomeScreen extends Component {
 
   render() {
     return (
-      <View>
+      <SafeAreaView>
         <FlatList
           data={this.state.users}
           renderItem={this.friendRender}
-          keyExtractor={item => item.name}
+          keyExtractor={item => item.uid}
         />
-      </View>
+      </SafeAreaView>
     );
   }
 }

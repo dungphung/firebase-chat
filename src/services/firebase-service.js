@@ -6,7 +6,7 @@ export default class FirebaseService {
   firestore = firebase.firestore();
 
   messageRef = this.firestore.collection(Collections.MESSAGES);
-  userRef = this.firestore.collection("Users");
+  userRef = this.firestore.collection(Collections.USERS);
 
   async signIn() {
     try {

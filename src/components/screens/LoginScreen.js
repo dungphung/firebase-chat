@@ -22,7 +22,7 @@ export default class LoginScreen extends React.Component {
     this.setState({ [key]: val });
   };
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     AsyncStorage.getItem("UserName").then(val => {
       if (val) {
         this.setState({ user: val });
