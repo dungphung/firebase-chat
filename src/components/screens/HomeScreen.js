@@ -18,7 +18,7 @@ export default class HomeScreen extends Component {
   };
 
   // Get data friends and set to state
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     firebaseService.userRef.onSnapshot(el => {
       for (let index = 0; index < el._docs.length; index++) {
         this.setState({ users: [...this.state.users, el._docs[index]._data] });
@@ -29,7 +29,10 @@ export default class HomeScreen extends Component {
   // Render flatlist
   friendRender = ({ item }) => {
     return (
-      <TouchableOpacity style={styles.item}>
+      <TouchableOpacity
+        onPress={() => this.props.navigation.navigate("Chat", item)}
+        style={styles.itemList}
+      >
         <Text>{item.name}</Text>
       </TouchableOpacity>
     );
@@ -49,7 +52,7 @@ export default class HomeScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  item: {
+  itemList: {
     padding: 5,
     margin: 2,
     flex: 1,

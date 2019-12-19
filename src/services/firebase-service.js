@@ -17,10 +17,10 @@ export default class FirebaseService {
     }
   }
 
-  async login({ user, password }) {
+  async login({ name, uid }) {
     await this.userRef.add({
-      user,
-      password
+      name,
+      uid
     });
   }
 

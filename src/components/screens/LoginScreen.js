@@ -31,19 +31,16 @@ export default class LoginScreen extends React.Component {
   }
 
   handleClick = async () => {
-    console.log("====================================");
-    console.log("Click success");
-    console.log("====================================");
     await AsyncStorage.setItem("UserName", this.state.user);
-    user = this.state.user;
-    password = this.state.password;
-    // firebaseService
-    //   .login({
-    //     user,
-    //     password
-    //   })
-    //   .then(() => console.log("oke"))
-    //   .catch(err => console.log(err));
+    name = this.state.user;
+    uid = this.state.password;
+    firebaseService
+      .login({
+        name,
+        uid
+      })
+      .then(() => console.log("oke"))
+      .catch(err => console.log(err));
     this.props.navigation.navigate("App");
   };
 
