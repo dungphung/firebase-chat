@@ -39,8 +39,6 @@ export default class ChatScreen extends Component {
       });
 
       list.sort(function(a, b) {
-        // Turn your strings into dates, and then subtract them
-        // to get a value that is either negative, positive, or zero.
         return new Date(b.created_at.seconds) - new Date(a.created_at.seconds);
       });
 
@@ -101,6 +99,7 @@ export default class ChatScreen extends Component {
       </View>
     );
   };
+
   render() {
     const { height, width } = Dimensions.get("window");
     return (
@@ -110,7 +109,7 @@ export default class ChatScreen extends Component {
           style={{ padding: 10, height: height * 0.8 }}
           data={this.state.messageList}
           renderItem={this.renderMessages}
-          keyExtractor={(item, index) => item.created_at}
+          keyExtractor={(item, index) => item.created_at.seconds}
         />
         <View style={{ flexDirection: `row`, alignItems: `center` }}>
           <TextInput

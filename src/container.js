@@ -21,7 +21,7 @@ export default createAppContainer(
       Test: TestScreen
     },
     {
-      initialRouteName: "AuthLoading"
+      initialRouteName: "Auth"
     }
   )
 );
