@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     paddingVertical: 10,
     paddingLeft: 20,
-
     borderTopWidth: 1,
     borderTopColor: Colors.GREY
   }

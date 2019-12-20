@@ -14,8 +14,7 @@ export default class LoginScreen extends React.Component {
     header: null
   };
   state = {
-    user: "",
-    password: ""
+    user: ""
   };
 
   handleChange = key => val => {
@@ -30,17 +29,8 @@ export default class LoginScreen extends React.Component {
     });
   }
 
-  handleClick = async () => {
-    await AsyncStorage.setItem("UserName", this.state.user);
-    name = this.state.user;
-    uid = this.state.password;
-    firebaseService
-      .login({
-        name,
-        uid
-      })
-      .then(() => console.log("oke"))
-      .catch(err => console.log(err));
+  handleClick = () => {
+    firebaseService.login(this.state.user);
     this.props.navigation.navigate("App");
   };
 
@@ -48,18 +38,11 @@ export default class LoginScreen extends React.Component {
     return (
       <View style={styles.container}>
         <TextInput
-          placeholder="User"
+          placeholder="Name"
           style={styles.input}
           keyboardType="number-pad"
           value={this.state.user}
           onChangeText={this.handleChange("user")}
-        />
-        <TextInput
-          style={styles.input}
-          value={this.state.password}
-          placeholder="Password"
-          onChangeText={this.handleChange("password")}
-          keyboardType="number-pad"
         />
         <Button title="Login" onPress={this.handleClick} />
       </View>

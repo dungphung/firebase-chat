@@ -16,36 +16,60 @@ import { firebaseService } from "../../services";
 export default class ChatScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.getParam("name", "uid")
+      title: navigation.getParam("item")
     };
   };
 
   state = {
     textMessage: "",
-    uid: this.props.navigation.getParam("uid"),
+    uid: this.props.navigation.getParam("uidContext"),
     messageList: null
   };
 
   componentDidMount() {
-    firebaseService.messageRef.onSnapshot(snapshot => {
-      const list = [{ message: "tih", uid: 1, created_at: 1576747062 }];
-      snapshot.forEach(doc => {
-        const { message, uid, created_at } = doc.data();
-        list.push({
-          message,
-          uid,
-          created_at
+    // firebaseService.messageRef.onSnapshot(snapshot => {
+    //   const list = [
+    //     { message: "tih", uid: 1, created_at: { seconds: 1576747062 } }
+    //   ];
+    //   snapshot.forEach(doc => {
+    //     const { message, uid, created_at } = doc.data();
+    //     list.push({
+    //       message,
+    //       uid,
+    //       created_at
+    //     });
+    //   });
+
+    //   list.sort(function(a, b) {
+    //     return new Date(b.created_at.seconds) - new Date(a.created_at.seconds);
+    //   });
+
+    //   this.setState({
+    //     messageList: list
+    //   });
+    // });
+    firebaseService.converstationRef
+      .doc("EVuRZUCG5wEV0pncEE5h")
+      .collection("messages")
+      .onSnapshot(snapshot => {
+        const list = [];
+        snapshot.forEach(doc => {
+          const { text, uid } = doc._data;
+          list.push({
+            text,
+            uid
+          });
+        });
+
+        // list.sort(function(a, b) {
+        //   return (
+        //     new Date(b.created_at.seconds) - new Date(a.created_at.seconds)
+        //   );
+        // });
+        this.setState({
+          messageList: list
         });
       });
-
-      list.sort(function(a, b) {
-        return new Date(b.created_at.seconds) - new Date(a.created_at.seconds);
-      });
-
-      this.setState({
-        messageList: list
-      });
-    });
   }
 
   convertTime = time => {
@@ -63,7 +87,7 @@ export default class ChatScreen extends Component {
   handleSubmit = () => {
     this.setState({ textMessage: "" });
     firebaseService.createMessage({
-      message: this.state.textMessage,
+      text: this.state.textMessage,
       uid: this.state.uid
     });
   };
@@ -74,8 +98,8 @@ export default class ChatScreen extends Component {
         style={{
           flexDirection: `row`,
           width: `60%`,
-          alignSelf: item.uid === 1 ? "flex-end" : "flex-start",
-          backgroundColor: item.uid === 1 ? "#00897b" : "#7cb342",
+          alignSelf: item.uid === this.state.uid ? "flex-end" : "flex-start",
+          backgroundColor: item.uid === this.state.uid ? "#00897b" : "#7cb342",
           borderRadius: 5,
           marginBottom: 10,
           marginTop: 10
@@ -90,11 +114,11 @@ export default class ChatScreen extends Component {
               marginBottom: 10
             }}
           >
-            {item.message}
+            {item.text}
           </Text>
         </View>
         <Text style={{ fontSize: 10 }}>
-          {this.convertTime(item.created_at.seconds)}
+          {/* {this.convertTime(item.created_at.seconds)} */}
         </Text>
       </View>
     );
@@ -109,7 +133,7 @@ export default class ChatScreen extends Component {
           style={{ padding: 10, height: height * 0.8 }}
           data={this.state.messageList}
           renderItem={this.renderMessages}
-          keyExtractor={(item, index) => item.created_at.seconds}
+          keyExtractor={(item, index) => index}
         />
         <View style={{ flexDirection: `row`, alignItems: `center` }}>
           <TextInput

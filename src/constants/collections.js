@@ -1,4 +1,6 @@
 export default {
   MESSAGES: "messages",
-  USERS: "users"
+  USERS: "users",
+  CONVERSTATIONS: "Conversations",
+  MESSAGES_CONVERS: "Conversations/messages"
 };
