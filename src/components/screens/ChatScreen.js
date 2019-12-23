@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { unionWith } from "lodash";
 import {
   SafeAreaView,
   TextInput,
@@ -22,49 +21,27 @@ export default class ChatScreen extends Component {
 
   state = {
     textMessage: "",
-    uid: this.props.navigation.getParam("uidContext"),
-    messageList: null
+    uid: this.props.navigation.getParam("userUid"),
+    messageList: null,
+    idDocs: this.props.navigation.getParam("idDocs")
   };
 
   componentDidMount() {
-    // firebaseService.messageRef.onSnapshot(snapshot => {
-    //   const list = [
-    //     { message: "tih", uid: 1, created_at: { seconds: 1576747062 } }
-    //   ];
-    //   snapshot.forEach(doc => {
-    //     const { message, uid, created_at } = doc.data();
-    //     list.push({
-    //       message,
-    //       uid,
-    //       created_at
-    //     });
-    //   });
-
-    //   list.sort(function(a, b) {
-    //     return new Date(b.created_at.seconds) - new Date(a.created_at.seconds);
-    //   });
-
-    //   this.setState({
-    //     messageList: list
-    //   });
-    // });
     firebaseService.converstationRef
-      .doc("EVuRZUCG5wEV0pncEE5h")
+      .doc(this.state.idDocs)
       .collection("messages")
       .onSnapshot(snapshot => {
         const list = [];
         snapshot.forEach(doc => {
-          const { text, uid } = doc._data;
+          const { uid, message } = doc._data;
           list.push({
-            text,
-            uid
+            uid,
+            message
           });
         });
 
         // list.sort(function(a, b) {
-        //   return (
-        //     new Date(b.created_at.seconds) - new Date(a.created_at.seconds)
-        //   );
+        //   return new Date(b.created_at) - new Date(a.created_at);
         // });
         this.setState({
           messageList: list
@@ -85,11 +62,13 @@ export default class ChatScreen extends Component {
   };
 
   handleSubmit = () => {
-    this.setState({ textMessage: "" });
+    const { uid, idDocs } = this.state;
     firebaseService.createMessage({
-      text: this.state.textMessage,
-      uid: this.state.uid
+      message: this.state.textMessage,
+      uid,
+      idDocs
     });
+    this.setState({ textMessage: "" });
   };
 
   renderMessages = ({ item }) => {
@@ -114,7 +93,7 @@ export default class ChatScreen extends Component {
               marginBottom: 10
             }}
           >
-            {item.text}
+            {item.message}
           </Text>
         </View>
         <Text style={{ fontSize: 10 }}>
@@ -133,7 +112,7 @@ export default class ChatScreen extends Component {
           style={{ padding: 10, height: height * 0.8 }}
           data={this.state.messageList}
           renderItem={this.renderMessages}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => index.toString()}
         />
         <View style={{ flexDirection: `row`, alignItems: `center` }}>
           <TextInput

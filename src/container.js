@@ -6,7 +6,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import HomeScreen from "./components/screens/HomeScreen";
 import LoginScreen from "./components/screens/LoginScreen";
 import AuthLoadingScreen from "./components/screens/AuthLoadingScreen";
-import TestScreen from "./container2";
+// import TestScreen from "./container2";
 import ChatScreen from "./components/screens/ChatScreen";
 
 const AppStack = createStackNavigator({ Home: HomeScreen, Chat: ChatScreen });
@@ -17,8 +17,8 @@ export default createAppContainer(
     {
       AuthLoading: AuthLoadingScreen,
       Auth: AuthStack,
-      App: AppStack,
-      Test: TestScreen
+      App: AppStack
+      // Test: TestScreen
     },
     {
       initialRouteName: "Auth"

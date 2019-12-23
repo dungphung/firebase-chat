@@ -6,41 +6,40 @@ import {
   TouchableOpacity,
   StyleSheet
 } from "react-native";
-import { UserContext } from "../../context";
+import { connect } from "react-redux";
 import { firebaseService } from "../../services/index";
+import { UserContext } from "../../context";
 import { SafeAreaView } from "react-navigation";
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
   static navigationOptions = {
-    title: "Friends"
+    title: "Conversations"
   };
 
   state = {
     converstations: [],
-    userContext: { uid: "cs64Zos0DxW2rfcOEmq2sdsadiSuPHK83" }
+    userUid: this.props.userUid
   };
 
   // Get data friends and set to state
   componentDidMount() {
+    console.log(this.props.userUid, "sreen");
+
     firebaseService.converstationRef.onSnapshot(snapshot => {
       snapshot.forEach(el => {
         el._data.uidRoom.forEach(el2 => {
-          if (el2 == this.state.userContext.uid) {
+          if (el2 == this.state.userUid) {
+            const text = el._ref._documentPath._parts[1];
             return this.setState({
-              converstations: [...this.state.converstations, el._data]
+              converstations: [
+                ...this.state.converstations,
+                { ...el._data, text }
+              ]
             });
           }
         });
       });
     });
-    // firebaseService.userRef.onSnapshot(el => {
-    //   for (let index = 0; index < el._docs.length; index++) {
-    //     if (el._docs[index]._data.uid !== this.state.userContext.uid)
-    //       this.setState({
-    //         users: [...this.state.users, el._docs[index]._data]
-    //       });
-    //   }
-    // });
   }
 
   // Render flatlist
@@ -50,7 +49,8 @@ export default class HomeScreen extends Component {
         onPress={() =>
           this.props.navigation.navigate("Chat", {
             item: item.name,
-            uidContext: this.state.userContext.uid
+            userUid: this.state.userUid,
+            idDocs: item.text
           })
         }
         style={styles.itemList}
@@ -73,6 +73,10 @@ export default class HomeScreen extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  userUid: state.userReducer.userUid
+});
+export default connect(mapStateToProps)(HomeScreen);
 const styles = StyleSheet.create({
   itemList: {
     padding: 5,

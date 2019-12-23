@@ -5,10 +5,8 @@ export default class FirebaseService {
   auth = firebase.auth();
   firestore = firebase.firestore();
 
-  messageRef = this.firestore.collection(Collections.MESSAGES);
   userRef = this.firestore.collection(Collections.USERS);
   converstationRef = this.firestore.collection(Collections.CONVERSTATIONS);
-  // messageConverRef = this.firestore.collection(Collections.MESSAGES_CONVERS);
 
   async signIn() {
     try {
@@ -23,7 +21,7 @@ export default class FirebaseService {
     await this.userRef.onSnapshot(snapshot => {
       snapshot.forEach(el => {
         if (name == el.data().name) {
-          console.log("Right User");
+          return el.data().uid;
         }
       });
     });
@@ -37,11 +35,14 @@ export default class FirebaseService {
     return messages.docs;
   }
 
-  async createMessage({ message, uid }) {
-    await this.messageRef.add({
-      message,
-      uid,
-      created_at: new Date()
-    });
+  async createMessage({ message, uid, idDocs }) {
+    await this.converstationRef
+      .doc(idDocs)
+      .collection("messages")
+      .add({
+        message,
+        uid,
+        created_at: new Date()
+      });
   }
 }

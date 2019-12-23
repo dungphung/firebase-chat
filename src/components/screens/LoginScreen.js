@@ -8,8 +8,10 @@ import {
   Button,
   AsyncStorage
 } from "react-native";
+import { setUserInfo } from "../../redux/actions/userAction";
+import { connect } from "react-redux";
 
-export default class LoginScreen extends React.Component {
+class LoginScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
@@ -30,8 +32,14 @@ export default class LoginScreen extends React.Component {
   }
 
   handleClick = () => {
-    firebaseService.login(this.state.user);
-    this.props.navigation.navigate("App");
+    firebaseService.userRef.onSnapshot(snapshot => {
+      snapshot.forEach(el => {
+        if (this.state.user == el.data().name) {
+          this.props.setUserInfo(el.data().uid);
+          this.props.navigation.navigate("App");
+        }
+      });
+    });
   };
 
   render() {
@@ -50,6 +58,10 @@ export default class LoginScreen extends React.Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  setUserInfo: userInfo => dispatch(setUserInfo(userInfo))
+});
+export default connect(null, mapDispatchToProps)(LoginScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
