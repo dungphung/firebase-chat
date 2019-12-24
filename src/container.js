@@ -1,5 +1,6 @@
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 
 // Implementation of HomeScreen, OtherScreen, SignInScreen, AuthLoadingScreen
 // goes here.
@@ -8,17 +9,25 @@ import LoginScreen from "./components/screens/LoginScreen";
 import AuthLoadingScreen from "./components/screens/AuthLoadingScreen";
 // import TestScreen from "./container2";
 import ChatScreen from "./components/screens/ChatScreen";
+import ContactScreen from "./components/screens/ContactScreen";
 
-const AppStack = createStackNavigator({ Home: HomeScreen, Chat: ChatScreen });
+const AppStack = createStackNavigator({
+  Home: HomeScreen,
+  Contact: ContactScreen,
+  Chat: ChatScreen
+});
 const AuthStack = createStackNavigator({ SignIn: LoginScreen });
+
+const TabNavigatior = createBottomTabNavigator({
+  Chats: AppStack,
+  Contact: ContactScreen
+});
 
 export default createAppContainer(
   createSwitchNavigator(
     {
-      AuthLoading: AuthLoadingScreen,
       Auth: AuthStack,
-      App: AppStack
-      // Test: TestScreen
+      App: TabNavigatior
     },
     {
       initialRouteName: "Auth"

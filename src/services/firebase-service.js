@@ -35,6 +35,14 @@ export default class FirebaseService {
     return messages.docs;
   }
 
+  async createConversation({ nameRoom, roomId, uidRoom }) {
+    await this.converstationRef.add({
+      nameRoom,
+      roomId,
+      uidRoom
+    });
+  }
+
   async createMessage({ message, uid, idDocs }) {
     await this.converstationRef
       .doc(idDocs)

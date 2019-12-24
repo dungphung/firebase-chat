@@ -23,8 +23,6 @@ class HomeScreen extends Component {
 
   // Get data friends and set to state
   componentDidMount() {
-    console.log(this.props.userUid, "sreen");
-
     firebaseService.converstationRef.onSnapshot(snapshot => {
       snapshot.forEach(el => {
         el._data.uidRoom.forEach(el2 => {
