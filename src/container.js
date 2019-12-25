@@ -11,11 +11,18 @@ import AuthLoadingScreen from "./components/screens/AuthLoadingScreen";
 import ChatScreen from "./components/screens/ChatScreen";
 import ContactScreen from "./components/screens/ContactScreen";
 
-const AppStack = createStackNavigator({
-  Home: HomeScreen,
-  Contact: ContactScreen,
-  Chat: ChatScreen
-});
+const AppStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Contact: ContactScreen,
+    Chat: ChatScreen
+  },
+  {
+    navigationOptions: ({ navigation }) => ({
+      tabBarVisible: navigation.state.index < 1
+    })
+  }
+);
 const AuthStack = createStackNavigator({ SignIn: LoginScreen });
 
 const TabNavigatior = createBottomTabNavigator({

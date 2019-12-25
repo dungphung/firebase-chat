@@ -25,9 +25,8 @@ class HomeScreen extends Component {
   // Get data friends and set to state
   componentDidMount() {
     firebaseService.converstationRef.onSnapshot(snapshot => {
-      let list = [];
+      const list = [];
       snapshot._docs.forEach(element => {
-        console.log();
         const text = element._ref._documentPath._parts[1];
         list.push({ ...element._data, text });
       });
@@ -45,8 +44,17 @@ class HomeScreen extends Component {
     });
   }
 
+  nameConver = uidRoom => {
+    this.state.listUsers.filter(el => {
+      if (el.uid === uidRoom[1]) {
+        return el.name;
+      }
+    });
+  };
+
   // Render flatlist
   friendRender = ({ item }) => {
+    this.nameConver(item.uidRoom);
     return (
       <TouchableOpacity
         onPress={() =>

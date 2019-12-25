@@ -14,7 +14,8 @@ import { SafeAreaView } from "react-navigation";
 class ContactScreen extends Component {
   state = {
     userUid: this.props.userUid,
-    listContact: []
+    listContact: [],
+    listConversations: []
   };
 
   // Get data contact and set to state
@@ -24,9 +25,27 @@ class ContactScreen extends Component {
         this.setState({ listContact: [...this.state.listContact, el._data] });
       });
     });
+    firebaseService.converstationRef.onSnapshot(snapshot => {
+      const list = [];
+      snapshot._docs.forEach(element => {
+        const text = element._ref._documentPath._parts[1];
+        list.push({ ...element._data, text });
+      });
+      this.setState({
+        listConversations: list
+      });
+    });
   }
 
   handleNewContact = item2 => {
+    // this.state.listConversations.forEach(element => {
+    //   element.uidRoom.filter(el => {
+    //     if (el ) {
+
+    //     }
+    //   });
+    // });
+
     firebaseService.converstationRef.get().then(result => {
       const lee = result._changes;
 

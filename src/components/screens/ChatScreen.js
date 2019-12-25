@@ -13,12 +13,15 @@ import {
 import { firebaseService } from "../../services";
 
 export default class ChatScreen extends Component {
+  // static navigationOptions = ({ navigation }) => {
+  //   return {
+  //     tabBarVisible: false,
+  //     title: navigation.getParam("item")
+  //   };
+  // };
   static navigationOptions = ({ navigation }) => {
-    return {
-      title: navigation.getParam("item")
-    };
+    return { tabBarVisible: false };
   };
-
   state = {
     textMessage: "",
     uid: this.props.navigation.getParam("userUid"),
