@@ -13,12 +13,11 @@ import { SafeAreaView } from "react-navigation";
 
 class ContactScreen extends Component {
   state = {
-    converstations: [],
     userUid: this.props.userUid,
     listContact: []
   };
 
-  // Get data friends and set to state
+  // Get data contact and set to state
   componentDidMount() {
     firebaseService.userRef.onSnapshot(snapshot => {
       snapshot.forEach(el => {
@@ -26,40 +25,60 @@ class ContactScreen extends Component {
       });
     });
   }
-  handleNewContact = item => {
+
+  handleNewContact = item2 => {
     firebaseService.converstationRef.get().then(result => {
       const lee = result._changes;
-      for (let index = 0; index < lee.length; index++) {
-        const length2 = lee[index]._document._data.uidRoom;
+
+      // filter if has item
+      const value = lee.filter(item => {
         if (
-          (length2[0] === this.state.userUid && length2[1] === item.uid) ||
-          (length2[1] === this.state.userUid && length2[0] === item.uid)
+          (item._document._data.uidRoom[0] == this.state.userUid &&
+            item._document._data.uidRoom[1] == item2.uid) ||
+          (item._document._data.uidRoom[1] == this.state.userUid &&
+            item._document._data.uidRoom[0] == item2.uid)
         ) {
-          this.props.navigation.navigate("Chat", {
-            item: item.name,
-            userUid: this.state.userUid,
-            idDocs: "1DEUmdWTCG5HFhIlrvJP"
-          });
+          return item;
         } else {
-          firebaseService.createConversation({
-            nameRoom: item.name,
-            roomId: "dsad",
-            uidRoom: [this.state.userUid, item.uid]
-          });
+          return null;
         }
+      });
+      // filter if has item
+
+      // check lenght value
+      if (value.length > 0) {
+        this.props.navigation.navigate("Chat", {
+          item: item2.name,
+          userUid: this.state.userUid,
+          idDocs: "1DEUmdWTCG5HFhIlrvJP"
+        });
+      } else {
+        firebaseService.createConversation({
+          nameRoom: item2.name,
+          roomId: "dsad",
+          uidRoom: [this.state.userUid, item2.uid]
+        });
+        // this.props.navigation.navigate("Chat", {
+        //   item: item2.name,
+        //   userUid: this.state.userUid,
+        //   idDocs: "1DEUmdWTCG5HFhIlrvJP"
+        // });
       }
+      // check lenght value
     });
   };
 
   // Render flatlist
   contactRender = ({ item }) => {
     return (
-      <TouchableOpacity
-        onPress={() => this.handleNewContact(item)}
-        style={styles.itemList}
-      >
-        <Text>{item.name}</Text>
-      </TouchableOpacity>
+      item.uid !== this.state.userUid && (
+        <TouchableOpacity
+          onPress={() => this.handleNewContact(item)}
+          style={styles.itemList}
+        >
+          <Text>{item.name}</Text>
+        </TouchableOpacity>
+      )
     );
   };
 
@@ -69,7 +88,7 @@ class ContactScreen extends Component {
         <FlatList
           data={this.state.listContact}
           renderItem={this.contactRender}
-          keyExtractor={(index, item) => index.toString()}
+          keyExtractor={item => item.name.toString()}
         />
       </SafeAreaView>
     );

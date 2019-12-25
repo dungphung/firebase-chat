@@ -24,18 +24,12 @@ class HomeScreen extends Component {
   // Get data friends and set to state
   componentDidMount() {
     firebaseService.converstationRef.onSnapshot(snapshot => {
-      snapshot.forEach(el => {
-        el._data.uidRoom.forEach(el2 => {
-          if (el2 == this.state.userUid) {
-            const text = el._ref._documentPath._parts[1];
-            return this.setState({
-              converstations: [
-                ...this.state.converstations,
-                { ...el._data, text }
-              ]
-            });
-          }
-        });
+      let list = [];
+      snapshot._docs.forEach(element => {
+        list.push(element._data);
+      });
+      this.setState({
+        converstations: list
       });
     });
   }
