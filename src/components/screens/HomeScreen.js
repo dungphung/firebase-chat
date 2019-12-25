@@ -18,7 +18,8 @@ class HomeScreen extends Component {
 
   state = {
     converstations: [],
-    userUid: this.props.userUid
+    userUid: this.props.userUid,
+    listUsers: []
   };
 
   // Get data friends and set to state
@@ -26,11 +27,21 @@ class HomeScreen extends Component {
     firebaseService.converstationRef.onSnapshot(snapshot => {
       let list = [];
       snapshot._docs.forEach(element => {
-        list.push(element._data);
+        console.log();
+        const text = element._ref._documentPath._parts[1];
+        list.push({ ...element._data, text });
       });
       this.setState({
         converstations: list
       });
+    });
+
+    firebaseService.userRef.get().then(result => {
+      const listUsers = [];
+      result._changes.forEach(el => {
+        listUsers.push(el._document._data);
+      });
+      this.setState({ listUsers: listUsers });
     });
   }
 
@@ -47,7 +58,7 @@ class HomeScreen extends Component {
         }
         style={styles.itemList}
       >
-        <Text>{item.nameRoom}</Text>
+        <Text>{item.uidRoom[1]}</Text>
       </TouchableOpacity>
     );
   };

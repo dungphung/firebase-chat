@@ -54,8 +54,6 @@ class ContactScreen extends Component {
         });
       } else {
         firebaseService.createConversation({
-          nameRoom: item2.name,
-          roomId: "dsad",
           uidRoom: [this.state.userUid, item2.uid]
         });
         // this.props.navigation.navigate("Chat", {

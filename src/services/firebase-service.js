@@ -35,10 +35,8 @@ export default class FirebaseService {
     return messages.docs;
   }
 
-  async createConversation({ nameRoom, roomId, uidRoom }) {
+  async createConversation({ uidRoom }) {
     await this.converstationRef.add({
-      nameRoom,
-      roomId,
       uidRoom
     });
   }
