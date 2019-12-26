@@ -13,12 +13,6 @@ import {
 import { firebaseService } from "../../services";
 
 export default class ChatScreen extends Component {
-  // static navigationOptions = ({ navigation }) => {
-  //   return {
-  //     tabBarVisible: false,
-  //     title: navigation.getParam("item")
-  //   };
-  // };
   static navigationOptions = ({ navigation }) => {
     return { tabBarVisible: false };
   };
@@ -37,10 +31,11 @@ export default class ChatScreen extends Component {
       .onSnapshot(snapshot => {
         const list = [];
         snapshot.forEach(doc => {
-          const { uid, message } = doc._data;
+          const { uid, message, created_at } = doc._data;
           list.push({
             uid,
-            message
+            message,
+            created_at: { created_at }
           });
         });
 
@@ -52,14 +47,6 @@ export default class ChatScreen extends Component {
         });
       });
   }
-
-  convertTime = time => {
-    let d = new Date(time);
-    let c = new Date();
-    let result = (d.getHours() < 10 && "0") + d.getHours() + ":";
-    result += (d.getMinutes() < 10 && "0") + d.getMinutes();
-    return result;
-  };
 
   handleChange = key => val => {
     this.setState({ [key]: val });
@@ -76,6 +63,7 @@ export default class ChatScreen extends Component {
   };
 
   renderMessages = ({ item }) => {
+    console.log(item.created_at);
     return (
       <View
         style={{
@@ -100,7 +88,6 @@ export default class ChatScreen extends Component {
             {item.message}
           </Text>
         </View>
-        <Text style={{ fontSize: 10 }}>{item.created_at}</Text>
       </View>
     );
   };
