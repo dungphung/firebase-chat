@@ -72,14 +72,18 @@ class ContactScreen extends Component {
           idDocs: "1DEUmdWTCG5HFhIlrvJP"
         });
       } else {
-        firebaseService.createConversation({
-          uidRoom: [this.state.userUid, item2.uid]
-        });
-        // this.props.navigation.navigate("Chat", {
-        //   item: item2.name,
-        //   userUid: this.state.userUid,
-        //   idDocs: "1DEUmdWTCG5HFhIlrvJP"
-        // });
+        // create new conversation and redirect to this
+        firebaseService.converstationRef
+          .add({
+            uidRoom: [this.state.userUid, item2.uid]
+          })
+          .then(result => {
+            this.props.navigation.navigate("Chat", {
+              item: item2.name,
+              userUid: this.state.userUid,
+              idDocs: result._documentPath._parts[1]
+            });
+          });
       }
       // check lenght value
     });

@@ -77,7 +77,7 @@ class HomeScreen extends Component {
         <FlatList
           data={this.state.converstations}
           renderItem={this.friendRender}
-          keyExtractor={item => item.roomId}
+          keyExtractor={item => item.uidRoom[1]}
         />
       </SafeAreaView>
     );
