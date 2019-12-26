@@ -33,6 +33,7 @@ export default class ChatScreen extends Component {
     firebaseService.converstationRef
       .doc(this.state.idDocs)
       .collection("messages")
+      .orderBy("created_at", "desc")
       .onSnapshot(snapshot => {
         const list = [];
         snapshot.forEach(doc => {
@@ -43,9 +44,9 @@ export default class ChatScreen extends Component {
           });
         });
 
-        // list.sort(function(a, b) {
-        //   return new Date(b.created_at) - new Date(a.created_at);
-        // });
+        list.sort(function(a, b) {
+          return new Date(b.created_at) - new Date(a.created_at);
+        });
         this.setState({
           messageList: list
         });
@@ -99,9 +100,7 @@ export default class ChatScreen extends Component {
             {item.message}
           </Text>
         </View>
-        <Text style={{ fontSize: 10 }}>
-          {/* {this.convertTime(item.created_at.seconds)} */}
-        </Text>
+        <Text style={{ fontSize: 10 }}>{item.created_at}</Text>
       </View>
     );
   };
@@ -117,7 +116,13 @@ export default class ChatScreen extends Component {
           renderItem={this.renderMessages}
           keyExtractor={(item, index) => index.toString()}
         />
-        <View style={{ flexDirection: `row`, alignItems: `center` }}>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: `row`,
+            alignItems: `center`
+          }}
+        >
           <TextInput
             value={this.state.textMessage}
             onChangeText={this.handleChange("textMessage")}
@@ -145,9 +150,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   buttonStyle: {
-    backgroundColor: `blue`,
+    backgroundColor: `#00897b`,
     padding: 5,
-    borderWidth: 1,
-    borderColor: `black`
+    color: `white`
   }
 });

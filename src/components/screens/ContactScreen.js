@@ -38,14 +38,6 @@ class ContactScreen extends Component {
   }
 
   handleNewContact = item2 => {
-    // this.state.listConversations.forEach(element => {
-    //   element.uidRoom.filter(el => {
-    //     if (el ) {
-
-    //     }
-    //   });
-    // });
-
     firebaseService.converstationRef.get().then(result => {
       const lee = result._changes;
 
@@ -57,6 +49,9 @@ class ContactScreen extends Component {
           (item._document._data.uidRoom[1] == this.state.userUid &&
             item._document._data.uidRoom[0] == item2.uid)
         ) {
+          console.log("====================================");
+          console.log(item._document._ref._documentPath._parts[1]);
+          console.log("====================================");
           return item;
         } else {
           return null;
@@ -66,10 +61,12 @@ class ContactScreen extends Component {
 
       // check lenght value
       if (value.length > 0) {
+        console.log(value);
+
         this.props.navigation.navigate("Chat", {
           item: item2.name,
           userUid: this.state.userUid,
-          idDocs: "1DEUmdWTCG5HFhIlrvJP"
+          idDocs: value[0]._document._ref._documentPath._parts[1]
         });
       } else {
         // create new conversation and redirect to this
