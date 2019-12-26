@@ -27,20 +27,6 @@ export default class FirebaseService {
     });
   }
 
-  async fetchMessages() {
-    const messages = await this.messageRef
-      .orderBy("created_at", "desc")
-      .limit(10)
-      .get();
-    return messages.docs;
-  }
-
-  async createConversation({ uidRoom }) {
-    await this.converstationRef.add({
-      uidRoom
-    });
-  }
-
   async createMessage({ message, uid, idDocs }) {
     await this.converstationRef
       .doc(idDocs)
