@@ -27,8 +27,11 @@ class HomeScreen extends Component {
     firebaseService.converstationRef.onSnapshot(snapshot => {
       const list = [];
       snapshot._docs.forEach(element => {
-        const text = element._ref._documentPath._parts[1];
-        list.push({ ...element._data, text });
+        element._data.uidRoom.filter(elFilter => {
+          const text = element._ref._documentPath._parts[1];
+          elFilter === this.state.userUid &&
+            list.push({ ...element._data, text });
+        });
       });
       this.setState({
         converstations: list
@@ -44,17 +47,20 @@ class HomeScreen extends Component {
     });
   }
 
-  nameConver = uidRoom => {
-    this.state.listUsers.filter(el => {
-      if (el.uid === uidRoom[1]) {
-        return el.name;
-      }
-    });
-  };
-
   // Render flatlist
   friendRender = ({ item }) => {
-    this.nameConver(item.uidRoom);
+    let nameUser = null;
+    let guest = null;
+    item.uidRoom.filter(el => {
+      if (el !== this.state.userUid) {
+        guest = el;
+      }
+    });
+    this.state.listUsers.filter(el => {
+      if (el.uid === guest) {
+        nameUser = el.name;
+      }
+    });
     return (
       <TouchableOpacity
         onPress={() =>
@@ -66,7 +72,7 @@ class HomeScreen extends Component {
         }
         style={styles.itemList}
       >
-        <Text>{item.uidRoom[1]}</Text>
+        <Text>{nameUser}</Text>
       </TouchableOpacity>
     );
   };
